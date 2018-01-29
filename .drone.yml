@@ -1,0 +1,23 @@
+pipeline:
+
+  test:
+    image: node:alpine
+    pull: true
+    commands:
+      - yarn install
+      - yarn run build
+      - yarn run test
+
+  publish:
+    image: plugins/npm
+    username: ethicaljobs
+    # refactor this back to a secret when the bug in drone `7.1` is addressed
+    password: Aarm4662
+    email: andrew@ethicaljobs.com.au
+    when:
+      event: tag
+
+  notify-slack:
+    image: plugins/slack
+    webhook: https://hooks.slack.com/services/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
+    channel: deployments
