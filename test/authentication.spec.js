@@ -159,27 +159,20 @@ describe('hasAnyRole function', () => {
 /**
  * ----------------------------------------
  */
-describe('isSuperUser function', () => {
+describe('isAdmin function', () => {
 
   test('it returns true if user has admin role', () => {
     const user = Immutable.fromJS({
       roles: ['admin']
     });
-    expect(Auth.isSuperUser(user)).toBe(true);
+    expect(Auth.isAdmin(user)).toBe(true);
   });
 
-  test('it returns true if user has service-account role', () => {
-    const user = Immutable.fromJS({
-      roles: ['service-account']
-    });
-    expect(Auth.isSuperUser(user)).toBe(true);
-  });
-
-  test('it returns false if user has neither service-account or admin roles', () => {
+  test('it returns false if user does not have admin role', () => {
     const user = Immutable.fromJS({
       roles: ['staff-member']
     });
-    expect(Auth.isSuperUser(user)).toBe(false);
+    expect(Auth.isAdmin(user)).toBe(false);
   });
 });
 

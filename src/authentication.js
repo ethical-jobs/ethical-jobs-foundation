@@ -61,12 +61,12 @@ function hasAnyRole(user, roles) {
 }
 
 /**
- * Checks if a user is a "super user"
+ * Checks if a user is an "admin"
  * @param Object user
  * @return Bool
  */
-function isSuperUser(user) {
-  return hasAnyRole(user, ['admin','service-account']);
+function isAdmin(user) {
+  return hasRole(user, 'admin');
 }
 
 /**
@@ -93,7 +93,7 @@ export default {
   hasRole,
   hasAllRoles,
   hasAnyRole,
-  isSuperUser,
+  isAdmin,
   isStaffMember,
   getUserApp,
 };
