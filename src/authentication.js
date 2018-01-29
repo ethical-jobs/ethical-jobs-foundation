@@ -63,7 +63,6 @@ function hasAnyRole(user, roles) {
 /**
  * Checks if a user is a "super user"
  * @param Object user
- * @param Array roles
  * @return Bool
  */
 function isSuperUser(user) {
@@ -73,7 +72,6 @@ function isSuperUser(user) {
 /**
  * Checks if a user has "staff-member" role
  * @param Object user
- * @param Array roles
  * @return Bool
  */
 function isStaffMember(user) {
@@ -82,6 +80,7 @@ function isStaffMember(user) {
 
 /**
  * Returns the route to the users app
+ * @param Object user
  * @return Bool
  */
 function getUserApp(user) {
