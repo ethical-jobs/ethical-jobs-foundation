@@ -196,7 +196,6 @@ describe('isStaffMember function', () => {
   });
 });
 
-
 /**
  * ----------------------------------------
  */
@@ -221,5 +220,27 @@ describe('getUserApp function', () => {
       roles: ['some-mock-role']
     });
     expect(Auth.getUserApp(user)).toBe('/organisation');
+  });
+});
+
+/**
+ * ----------------------------------------
+ */
+describe('userRolesSelector function', () => {
+
+  test('it returns a users roles', () => {
+    const user = Immutable.fromJS({
+      roles: ['staff-member', 'pig-farmer', 'weed-puller']
+    });
+    expect(Auth.userRolesSelector(user)).toEqual([
+      'staff-member', 'pig-farmer', 'weed-puller'
+    ]);
+  });
+
+  test('it always returns an Array', () => {
+    expect(Auth.userRolesSelector(null)).toEqual([]);
+    expect(Auth.userRolesSelector(undefined)).toEqual([]);
+    expect(Auth.userRolesSelector(Immutable.fromJS({}))).toEqual([]);
+    expect(Auth.userRolesSelector(Immutable.fromJS([]))).toEqual([]);
   });
 });

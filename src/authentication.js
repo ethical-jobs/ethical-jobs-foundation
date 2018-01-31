@@ -87,6 +87,15 @@ function getUserApp(user) {
   return isStaffMember(user) ? '/admin' : '/organisation';
 }
 
+/**
+ * Returns a users roles
+ * @param Object user
+ * @return Array
+ */
+function userRolesSelector(user) {
+  return user && user.has('roles') && user.get('roles').toArray() || [];
+}
+
 export default {
   hasToken,
   isAuthLoaded,
@@ -96,4 +105,5 @@ export default {
   isAdmin,
   isStaffMember,
   getUserApp,
+  userRolesSelector,
 };

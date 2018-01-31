@@ -1,3 +1,7 @@
+# v0.1.3
+
+- Added auth.userRolesSelector function.
+
 # v0.1.2
 
 - Removed isSuperAdmin in favour of isAdmin helper
