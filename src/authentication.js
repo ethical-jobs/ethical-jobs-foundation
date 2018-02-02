@@ -1,14 +1,35 @@
 import Immutable from 'immutable';
 
-const roles = [
-  { name: 'service-account', description: 'Service account' },
-  { name: 'admin', description: 'Administrator' },
-  { name: 'staff-member', description: 'Staff Member' },
-  { name: 'relations-team', description: 'Relationships Team' },
-  { name: 'customer-service-team', description: 'Customer Service Team' },
-  { name: 'employer-member', description: 'Employer user' },
-  { name: 'job-seeker', description: 'Job seeker' },
-];
+const roles = {
+  'service-account': {
+    name: 'service-account',
+    description: 'Service account',
+  },
+  'admin': {
+    name: 'admin',
+    description: 'Administrator',
+   },
+  'staff-member': {
+    name: 'staff-member',
+    description: 'Staff Member',
+  },
+  'relations-team': {
+    name: 'relations-team',
+    description: 'Relationships Team',
+  },
+  'customer-service-team': {
+    name: 'customer-service-team',
+     description: 'Customer Service Team',
+   },
+  'employer-member': {
+    name: 'employer-member',
+    description: 'Employer user',
+  },
+  'job-seeker': {
+    name: 'job-seeker',
+    description: 'Job seeker',
+  },
+};
 
 /**
  * Checks if auth token present

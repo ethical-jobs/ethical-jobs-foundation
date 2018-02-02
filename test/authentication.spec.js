@@ -250,13 +250,20 @@ describe('userRolesSelector function', () => {
  */
 describe('roles array', () => {
 
-  test('it exports an array of roles', () => {
-    expect(Array.isArray(Auth.roles)).toBe(true);
+  test('it exports an object of roles', () => {
+    expect(Auth.roles instanceof Object).toBe(true);
   });
 
   test('its roles export have correct properties', () => {
-    const randomRole = Auth.roles[Math.floor(Math.random()*Auth.roles.length)];
-    expect(randomRole.hasOwnProperty('name')).toBe(true);
-    expect(randomRole.hasOwnProperty('description')).toBe(true);
+    Object.getOwnPropertyNames(Auth.roles).forEach(key => {
+      expect(Auth.roles[key].hasOwnProperty('name')).toBe(true);
+      expect(Auth.roles[key].hasOwnProperty('description')).toBe(true);
+    });
+  });
+
+  test('its roles export is keyed by name', () => {
+    Object.getOwnPropertyNames(Auth.roles).forEach(key => {
+      expect(Auth.roles[key].name).toBe(key);
+    });
   });
 });
