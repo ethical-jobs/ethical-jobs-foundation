@@ -244,3 +244,19 @@ describe('userRolesSelector function', () => {
     expect(Auth.userRolesSelector(Immutable.fromJS([]))).toEqual([]);
   });
 });
+
+/**
+ * ----------------------------------------
+ */
+describe('roles array', () => {
+
+  test('it exports an array of roles', () => {
+    expect(Array.isArray(Auth.roles)).toBe(true);
+  });
+
+  test('its roles export have correct properties', () => {
+    const randomRole = Auth.roles[Math.floor(Math.random()*Auth.roles.length)];
+    expect(randomRole.hasOwnProperty('name')).toBe(true);
+    expect(randomRole.hasOwnProperty('description')).toBe(true);
+  });
+});

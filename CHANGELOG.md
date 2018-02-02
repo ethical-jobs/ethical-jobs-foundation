@@ -1,3 +1,7 @@
+# v0.1.4
+
+- Added auth.roles export
+
 # v0.1.3
 
 - Added auth.userRolesSelector function.

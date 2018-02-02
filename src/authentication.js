@@ -1,5 +1,15 @@
 import Immutable from 'immutable';
 
+const roles = [
+  { name: 'service-account', description: 'Service account' },
+  { name: 'admin', description: 'Administrator' },
+  { name: 'staff-member', description: 'Staff Member' },
+  { name: 'relations-team', description: 'Relationships Team' },
+  { name: 'customer-service-team', description: 'Customer Service Team' },
+  { name: 'employer-member', description: 'Employer user' },
+  { name: 'job-seeker', description: 'Job seeker' },
+];
+
 /**
  * Checks if auth token present
  * @return Bool
@@ -106,4 +116,5 @@ export default {
   isStaffMember,
   getUserApp,
   userRolesSelector,
+  roles,
 };
