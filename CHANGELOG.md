@@ -1,3 +1,8 @@
+# v1.0.0
+
+- Changing to semver 2.0
+- Added analytics package
+
 # v0.1.4
 
 - Added auth.roles export
