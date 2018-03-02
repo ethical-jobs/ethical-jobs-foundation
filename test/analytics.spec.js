@@ -102,26 +102,3 @@ describe('fireJobSearch function', () => {
     }]);
   });
 });
-
-/**
- * ----------------------------------------
- */
-describe('fireAlertSignup function', () => {
-
-  test('it fires event with correct params', () => {
-    global.ga = sinon.spy();
-    Analytics.fireAlertSignup('andrew@ethicaljobs.com.au');
-    expect(global.ga.calledOnce).toBe(true);
-    expect(global.ga.args[0]).toEqual(['send', 'event', {
-      eventCategory: 'users',
-      eventAction: 'alert-signup',
-      dimension7: 'andrew@ethicaljobs.com.au',
-    }]);
-  });
-
-  test('it wont fire event with empty email', () => {
-    global.ga = sinon.spy();
-    Analytics.fireAlertSignup();
-    expect(global.ga.calledOnce).toBe(false);
-  });
-});

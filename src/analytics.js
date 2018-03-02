@@ -65,26 +65,10 @@ function fireJobSearch(filters) {
   });
 }
 
-/**
- *
- * @param {Immutable} filters
- * @return void
- */
-function fireAlertSignup(email = '') {
-  if (email.length) {
-    ga('send', 'event', {
-      eventCategory: 'users',
-      eventAction: 'alert-signup',
-      dimension7: email,
-    });
-  }
-}
-
 export default {
   trackingCode,
   firePageView,
   fireJobView,
   fireJobClick,
   fireJobSearch,
-  fireAlertSignup,
 };
