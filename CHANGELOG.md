@@ -1,7 +1,8 @@
-# v1.0.0
+# v1.0.2
 
 - Changing to semver 2.0
 - Added analytics package
+- Added email signup analytics event
 
 # v0.1.4
 
