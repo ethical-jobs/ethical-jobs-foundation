@@ -1,3 +1,9 @@
+# v1.1.0 - [2018-04-26]
+
+## Added 
+
+- Added Analytics signup, unsubscribe and confirm events
+
 # v1.0.2
 
 - Changing to semver 2.0
