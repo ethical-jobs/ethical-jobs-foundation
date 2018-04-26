@@ -70,11 +70,57 @@ function fireJobSearch(filters) {
  * @param {Immutable} filters
  * @return void
  */
-function fireAlertSignup(email = '') {
-  if (email.length) {
+function fireAlertSignup(email, filters) {
+  const filtersJS = filters.toJS();
+  if (email && email.length) {
     ga('send', 'event', {
-      eventCategory: 'users',
-      eventAction: 'alert-signup',
+      eventCategory: 'alerts',
+      eventAction: 'signup',
+      dimension2: filtersJS.q,          // search:term
+      dimension3: filtersJS.categories, // search:category
+      dimension4: filtersJS.locations,  // search:location
+      dimension5: filtersJS.workTypes,  // search:workType
+      dimension7: email,
+    });
+  }
+}
+
+/**
+ *
+ * @param {Immutable} filters
+ * @return void
+ */
+function fireAlertConfirm(email, filters) {
+  const filtersJS = filters.toJS();
+  if (email && email.length) {
+    ga('send', 'event', {
+      eventCategory: 'alerts',
+      eventAction: 'confirm',
+      dimension2: filtersJS.q,          // search:term
+      dimension3: filtersJS.categories, // search:category
+      dimension4: filtersJS.locations,  // search:location
+      dimension5: filtersJS.workTypes,  // search:workType
+      dimension7: email,
+    });
+  }
+}
+
+/**
+ *
+ * @param {Immutable} filters
+ * @return void
+ */
+function fireAlertUnsubscribe(email, filters) {
+  const filtersJS = filters.toJS();
+
+  if (email && email.length) {
+    ga('send', 'event', {
+      eventCategory: 'alerts',
+      eventAction: 'unsubscribe',
+      dimension2: filtersJS.q,          // search:term
+      dimension3: filtersJS.categories, // search:category
+      dimension4: filtersJS.locations,  // search:location
+      dimension5: filtersJS.workTypes,  // search:workType
       dimension7: email,
     });
   }
@@ -87,4 +133,6 @@ export default {
   fireJobClick,
   fireJobSearch,
   fireAlertSignup,
+  fireAlertConfirm,
+  fireAlertUnsubscribe,
 };
