@@ -1,87 +1,63 @@
-import {Analytics} from '..';
+import { Analytics } from '..';
 import Immutable from 'immutable';
-import sinon from 'sinon';
 
 /**
  * ----------------------------------------
  */
-describe('firePageView function', () => {
+describe('jobView function', () => {
 
-  test('it fires event with correct params', () => {
-    global.ga = sinon.spy();
-    Analytics.firePageView();
-    expect(global.ga.calledOnce).toBe(true);
-    expect(global.ga.args[0][0]).toBe('send');
-    expect(global.ga.args[0][1]).toBe('pageview');
-  });
-});
-
-/**
- * ----------------------------------------
- */
-describe('fireJobView function', () => {
-
-  test('it fires event with correct params', () => {
-    global.ga = sinon.spy();
-    Analytics.fireJobView('my-job-slug');
-    expect(global.ga.calledOnce).toBe(true);
-    expect(global.ga.args[0]).toEqual(['send', 'event', {
-      eventCategory: 'jobs',
-      eventAction: 'view',
+  test('it returns correct params', () => {
+    const data = Analytics.jobView('my-job-slug');
+    expect(data).toEqual({
+      category: 'jobs',
+      action: 'view',
       dimension1: 'my-job-slug',
-    }]);
+    });
   });
 
   test('it wont fire event with empty slug', () => {
-    global.ga = sinon.spy();
-    Analytics.fireJobView();
-    expect(global.ga.calledOnce).toBe(false);
+    const data = Analytics.jobView();
+    expect(data).toEqual({});
   });
 });
 
 /**
  * ----------------------------------------
  */
-describe('fireJobClick function', () => {
+describe('jobClick function', () => {
 
   test('it fires event when link event passed in', () => {
-    global.ga = sinon.spy();
-    const event = {target: {tagName: 'a'}};
-    Analytics.fireJobClick(event, 'my-job-slug');
-    expect(global.ga.calledOnce).toBe(true);
-    expect(global.ga.args[0]).toEqual(['send', 'event', {
-      eventCategory: 'jobs',
-      eventAction: 'apply',
+    const event = { target: { tagName: 'a' } };
+    const data = Analytics.jobClick(event, 'my-job-slug');
+    expect(data).toEqual({
+      category: 'jobs',
+      action: 'apply',
       dimension1: 'my-job-slug',
-    }]);
+    });
   });
 
   test('it wont fire event with empty slug', () => {
-    global.ga = sinon.spy();
-    const event = {target: {tagName: 'a'}};
-    Analytics.fireJobClick(event);
-    expect(global.ga.calledOnce).toBe(false);
+    const event = { target: { tagName: 'a' } };
+    const data = Analytics.jobClick(event);
+    expect(data).toEqual({});
   });
 
   test('it wont fire event with invalid event', () => {
-    global.ga = sinon.spy();
-    Analytics.fireJobClick({target: {tagName: 'div'}}, 'my-job-slug');
-    Analytics.fireJobClick({target: {tagName: 'h1'}}, 'my-job-slug');
-    Analytics.fireJobClick({target: {tagName: 'span'}}, 'my-job-slug');
-    Analytics.fireJobClick({target: {tagName: undefined}}, 'my-job-slug');
-    Analytics.fireJobClick({target: undefined}, 'my-job-slug');
-    Analytics.fireJobClick({}, 'my-job-slug');
-    expect(global.ga.calledOnce).toBe(false);
+    expect(Analytics.jobClick({target: {tagName: 'div'}}, 'my-job-slug')).toEqual({});
+    expect(Analytics.jobClick({target: {tagName: 'h1'}}, 'my-job-slug')).toEqual({});
+    expect(Analytics.jobClick({target: {tagName: 'span'}}, 'my-job-slug')).toEqual({});
+    expect(Analytics.jobClick({target: {tagName: undefined}}, 'my-job-slug')).toEqual({});
+    expect(Analytics.jobClick({target: undefined}, 'my-job-slug')).toEqual({});
+    expect(Analytics.jobClick({}, 'my-job-slug')).toEqual({});
   });
 });
 
 /**
  * ----------------------------------------
  */
-describe('fireJobSearch function', () => {
+describe('jobSearch function', () => {
 
   test('it fires event when link event passed in', () => {
-    global.ga = sinon.spy();
     const filters = Immutable.Map({
       q: 'Senior ReactJS javascript developer',
       categories: [18, 27, 83, 2],
@@ -89,94 +65,84 @@ describe('fireJobSearch function', () => {
       workTypes: [1, 27, 3],
       sectors: [11, 7, 13],
     });
-    Analytics.fireJobSearch(filters);
-    expect(global.ga.calledOnce).toBe(true);
-    expect(global.ga.args[0]).toEqual(['send', 'event', {
-      eventCategory: 'jobs',
-      eventAction: 'search',
+    const data = Analytics.jobSearch(filters);
+    expect(data).toEqual({
+      category: 'jobs',
+      action: 'search',
       dimension2: 'Senior ReactJS javascript developer',
       dimension3: [18, 27, 83, 2],
       dimension4: [87, 37],
       dimension5: [1, 27, 3],
       dimension6: [11, 7, 13],
-    }]);
+    });
   });
 });
 
 /**
  * ----------------------------------------
  */
-describe('fireAlertSignup function', () => {
+describe('alertSignup function', () => {
 
   test('it fires event with correct params', () => {
-    global.ga = sinon.spy();
     const filters = Immutable.Map({
       q: 'Senior support worker',
       categories: [1],
       locations: [7],
       workTypes: [3],
     });
-
-    Analytics.fireAlertSignup('andrew@ethicaljobs.com.au', filters);
-
-    expect(global.ga.calledOnce).toBe(true);
-    expect(global.ga.args[0]).toEqual(['send', 'event', {
-      eventCategory: 'alerts',
-      eventAction: 'signup',
+    const data = Analytics.alertSignup('andrew@ethicaljobs.com.au', filters);
+    expect(data).toEqual({
+      category: 'alerts',
+      action: 'signup',
       dimension7: 'andrew@ethicaljobs.com.au',
       dimension2: 'Senior support worker',
       dimension3: [1],
       dimension4: [7],
       dimension5: [3],
-    }]);
+    });
   });
 
   test('it will fire event with empty filters', () => {
-    global.ga = sinon.spy();
     const filters = Immutable.Map({});
-    Analytics.fireAlertSignup('andrew@ethicaljobs.com.au', filters);
-    expect(global.ga.calledOnce).toBe(true);
-    expect(global.ga.args[0]).toEqual(['send', 'event', {
-      eventCategory: 'alerts',
-      eventAction: 'signup',
+    const data = Analytics.alertSignup('andrew@ethicaljobs.com.au', filters);
+    expect(data).toEqual({
+      category: 'alerts',
+      action: 'signup',
       dimension7: 'andrew@ethicaljobs.com.au',
-    }]);
+    });
   });
 
   test('it wont fire event with empty email', () => {
-    global.ga = sinon.spy();
     const filters = Immutable.Map({
       q: 'Senior support worker',
       categories: [1],
       locations: [7],
       workTypes: [3],
     });
-    Analytics.fireAlertSignup('', filters);
-    expect(global.ga.calledOnce).toBe(false);
+    const data = Analytics.alertSignup('', filters);
+    expect(data).toEqual({});
   });
 
   test('it wont fire event on null.', () => {
-    global.ga = sinon.spy();
     const filters = Immutable.Map({
       q: 'Senior support worker',
       categories: [1],
       locations: [7],
       workTypes: [3],
     });
-    Analytics.fireAlertSignup(null, filters);
-    expect(global.ga.calledOnce).toBe(false);
+    const data = Analytics.alertSignup(null, filters);
+    expect(data).toEqual({});
   });
 
   test('it wont fire event on undefined.', () => {
-    global.ga = sinon.spy();
     const filters = Immutable.Map({
       q: 'Senior support worker',
       categories: [1],
       locations: [7],
       workTypes: [3],
     });
-    Analytics.fireAlertSignup(undefined, filters);
-    expect(global.ga.calledOnce).toBe(false);
+    const data = Analytics.alertSignup(undefined, filters);
+    expect(data).toEqual({});
   });
 });
 
@@ -184,103 +150,111 @@ describe('fireAlertSignup function', () => {
 /**
  * ----------------------------------------
  */
-describe('fireAlertConfirm function', () => {
+describe('alertConfirm function', () => {
 
   test('it fires event with correct params', () => {
-    global.ga = sinon.spy();
     const filters = Immutable.Map({
       q: 'Senior support worker',
       categories: [1],
       locations: [7],
       workTypes: [3],
     });
-
-    Analytics.fireAlertConfirm('andrew@ethicaljobs.com.au', filters);
-    expect(global.ga.calledOnce).toBe(true);
-    expect(global.ga.args[0]).toEqual(['send', 'event', {
-      eventCategory: 'alerts',
-      eventAction: 'confirm',
+    const data = Analytics.alertConfirm('andrew@ethicaljobs.com.au', filters);
+    expect(data).toEqual({
+      category: 'alerts',
+      action: 'confirm',
       dimension7: 'andrew@ethicaljobs.com.au',
       dimension2: 'Senior support worker',
       dimension3: [1],
       dimension4: [7],
       dimension5: [3],
-    }]);
+    });
   });
 
   test('it will fire event with empty filters', () => {
-    global.ga = sinon.spy();
     const filters = Immutable.Map({});
-    Analytics.fireAlertConfirm('andrew@ethicaljobs.com.au', filters);
-    expect(global.ga.calledOnce).toBe(true);
-    expect(global.ga.args[0]).toEqual(['send', 'event', {
-      eventCategory: 'alerts',
-      eventAction: 'confirm',
+    const data = Analytics.alertConfirm('andrew@ethicaljobs.com.au', filters);
+    expect(data).toEqual({
+      category: 'alerts',
+      action: 'confirm',
       dimension7: 'andrew@ethicaljobs.com.au',
-    }]);
+    });
   });
 
   test('it wont fire event with empty email', () => {
-    global.ga = sinon.spy();
     const filters = Immutable.Map({
       q: 'Senior support worker',
       categories: [1],
       locations: [7],
       workTypes: [3],
     });
-    Analytics.fireAlertConfirm('', filters);
-    expect(global.ga.calledOnce).toBe(false);
+    const data = Analytics.alertConfirm('', filters);
+    expect(data).toEqual({});
   });
 });
 
 /**
  * ----------------------------------------
  */
-describe('fireAlertUnsubscribe function', () => {
+describe('alertUnsubscribe function', () => {
 
   test('it fires event with correct params', () => {
-    global.ga = sinon.spy();
     const filters = Immutable.Map({
       q: 'Senior support worker',
       categories: [1],
       locations: [7],
       workTypes: [3],
     });
-
-    Analytics.fireAlertUnsubscribe('andrew@ethicaljobs.com.au', filters);
-    expect(global.ga.calledOnce).toBe(true);
-    expect(global.ga.args[0]).toEqual(['send', 'event', {
-      eventCategory: 'alerts',
-      eventAction: 'unsubscribe',
+    const data = Analytics.alertUnsubscribe('andrew@ethicaljobs.com.au', filters);
+    expect(data).toEqual({
+      category: 'alerts',
+      action: 'unsubscribe',
       dimension7: 'andrew@ethicaljobs.com.au',
       dimension2: 'Senior support worker',
       dimension3: [1],
       dimension4: [7],
       dimension5: [3],
-    }]);
+    });
   });
 
   test('it will fire event with empty filters', () => {
-    global.ga = sinon.spy();
     const filters = Immutable.Map({});
-    Analytics.fireAlertUnsubscribe('andrew@ethicaljobs.com.au', filters);
-    expect(global.ga.calledOnce).toBe(true);
-    expect(global.ga.args[0]).toEqual(['send', 'event', {
-      eventCategory: 'alerts',
-      eventAction: 'unsubscribe',
+    const data = Analytics.alertUnsubscribe('andrew@ethicaljobs.com.au', filters);
+    expect(data).toEqual({
+      category: 'alerts',
+      action: 'unsubscribe',
       dimension7: 'andrew@ethicaljobs.com.au',
-    }]);
+    });
   });
 
   test('it wont fire event with empty email', () => {
-    global.ga = sinon.spy();
     const filters = Immutable.Map({
       q: 'Senior support worker',
       categories: [1],
       locations: [7],
       workTypes: [3],
     });
-    Analytics.fireAlertUnsubscribe('',filters);
-    expect(global.ga.calledOnce).toBe(false);
+    const data = Analytics.alertUnsubscribe('',filters);
+    expect(data).toEqual({});
+  });
+});
+
+/**
+ * ----------------------------------------
+ */
+describe('weeklySubscribe function', () => {
+
+  test('it fires event with correct params', () => {
+    const data = Analytics.weeklySubscribe('andrew@ethicaljobs.com.au');
+    expect(data).toEqual({
+      category: 'weekly-email',
+      action: 'signup',
+      dimension7: 'andrew@ethicaljobs.com.au',
+    });
+  });
+
+  test('it wont fire event with empty email', () => {
+    const data = Analytics.weeklySubscribe('');
+    expect(data).toEqual({});
   });
 });

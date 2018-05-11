@@ -1,33 +1,17 @@
 /**
- * Analytics tracking code for injection into page.
- * @type string
- */
-const trackingCode = `
-  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
-  ga('create', 'UA-8452399-1', 'auto');
-`;
-
-/**
- * Fires an analytics pageview
- * @return void
- */
-function firePageView() {
-  ga('send', 'pageview');
-}
-
-/**
  * Fires an analytics job view event
  * @param {string} [slug]
  * @return void
  */
-function fireJobView(jobSlug = '') {
+function jobView(jobSlug = '') {
   if (jobSlug.length) {
-    ga('send', 'event', {
-      eventCategory: 'jobs',
-      eventAction: 'view',
+    return {
+      category: 'jobs',
+      action: 'view',
       dimension1: jobSlug,
-    });
+    };    
   }
+  return {};
 }
 
 /**
@@ -36,15 +20,16 @@ function fireJobView(jobSlug = '') {
  * @param {string} [jobSlug]
  * @return void
  */
-function fireJobClick(event, jobSlug = '') {
+function jobClick(event, jobSlug = '') {
   const tagName = event.target && event.target.tagName && event.target.tagName || '';
   if (tagName.toLowerCase() === 'a' && jobSlug.length) {
-    ga('send', 'event', {
-      eventCategory: 'jobs',
-      eventAction: 'apply',
+    return {
+      category: 'jobs',
+      action: 'apply',
       dimension1: jobSlug,
-    });
+    };        
   }
+  return {};
 }
 
 /**
@@ -52,17 +37,17 @@ function fireJobClick(event, jobSlug = '') {
  * @param {Immutable} filters
  * @return void
  */
-function fireJobSearch(filters) {
+function jobSearch(filters) {
   const filtersJS = filters.toJS();
-  ga('send', 'event', {
-    eventCategory: 'jobs',
-    eventAction: 'search',
+  return {
+    category: 'jobs',
+    action: 'search',
     dimension2: filtersJS.q,          // search:term
     dimension3: filtersJS.categories, // search:category
     dimension4: filtersJS.locations,  // search:location
     dimension5: filtersJS.workTypes,  // search:workType
     dimension6: filtersJS.sectors,    // search:sector
-  });
+  };   
 }
 
 /**
@@ -70,19 +55,20 @@ function fireJobSearch(filters) {
  * @param {Immutable} filters
  * @return void
  */
-function fireAlertSignup(email, filters) {
+function alertSignup(email, filters) {
   const filtersJS = filters.toJS();
   if (email && email.length) {
-    ga('send', 'event', {
-      eventCategory: 'alerts',
-      eventAction: 'signup',
+    return {
+      category: 'alerts',
+      action: 'signup',
       dimension2: filtersJS.q,          // search:term
       dimension3: filtersJS.categories, // search:category
       dimension4: filtersJS.locations,  // search:location
       dimension5: filtersJS.workTypes,  // search:workType
       dimension7: email,
-    });
+    };       
   }
+  return {};
 }
 
 /**
@@ -90,19 +76,20 @@ function fireAlertSignup(email, filters) {
  * @param {Immutable} filters
  * @return void
  */
-function fireAlertConfirm(email, filters) {
+function alertConfirm(email, filters) {
   const filtersJS = filters.toJS();
   if (email && email.length) {
-    ga('send', 'event', {
-      eventCategory: 'alerts',
-      eventAction: 'confirm',
+    return {
+      category: 'alerts',
+      action: 'confirm',
       dimension2: filtersJS.q,          // search:term
       dimension3: filtersJS.categories, // search:category
       dimension4: filtersJS.locations,  // search:location
       dimension5: filtersJS.workTypes,  // search:workType
       dimension7: email,
-    });
+    };    
   }
+  return {};
 }
 
 /**
@@ -110,29 +97,44 @@ function fireAlertConfirm(email, filters) {
  * @param {Immutable} filters
  * @return void
  */
-function fireAlertUnsubscribe(email, filters) {
+function alertUnsubscribe(email, filters) {
   const filtersJS = filters.toJS();
-
   if (email && email.length) {
-    ga('send', 'event', {
-      eventCategory: 'alerts',
-      eventAction: 'unsubscribe',
+    return {
+      category: 'alerts',
+      action: 'unsubscribe',
       dimension2: filtersJS.q,          // search:term
       dimension3: filtersJS.categories, // search:category
       dimension4: filtersJS.locations,  // search:location
       dimension5: filtersJS.workTypes,  // search:workType
       dimension7: email,
-    });
+    };     
   }
+  return {};
+}
+
+/**
+ *
+ * @param {Immutable} filters
+ * @return void
+ */
+function weeklySubscribe(email) {
+  if (email && email.length) {
+    return {
+      category: 'weekly-email',
+      action: 'signup',
+      dimension7: email,
+    };       
+  }
+  return {};
 }
 
 export default {
-  trackingCode,
-  firePageView,
-  fireJobView,
-  fireJobClick,
-  fireJobSearch,
-  fireAlertSignup,
-  fireAlertConfirm,
-  fireAlertUnsubscribe,
+  jobView,
+  jobClick,
+  jobSearch,
+  alertSignup,
+  alertConfirm,
+  alertUnsubscribe,
+  weeklySubscribe,
 };

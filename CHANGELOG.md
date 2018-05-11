@@ -1,3 +1,9 @@
+# v2.0.0 - [2018-05-11]
+
+## Added 
+
+- Refactored how Analytics works, only returning objects now for react-ga
+
 # v1.1.0 - [2018-04-26]
 
 ## Added 
