@@ -1,7 +1,7 @@
 /**
  * Fires an analytics job view event
  * @param {string} [slug]
- * @return void
+ * @return object
  */
 function jobView(jobSlug = '') {
   if (jobSlug.length) {
@@ -18,7 +18,7 @@ function jobView(jobSlug = '') {
  * Fires an analytics job click event
  * @param {Object} event
  * @param {string} [jobSlug]
- * @return void
+ * @return object
  */
 function jobClick(event, jobSlug = '') {
   const tagName = event.target && event.target.tagName && event.target.tagName || '';
@@ -35,7 +35,7 @@ function jobClick(event, jobSlug = '') {
 /**
  * Fires an analytics job search event
  * @param {Immutable} filters
- * @return void
+ * @return object
  */
 function jobSearch(filters) {
   const filtersJS = filters.toJS();
@@ -53,7 +53,7 @@ function jobSearch(filters) {
 /**
  *
  * @param {Immutable} filters
- * @return void
+ * @return object
  */
 function alertSignup(email, filters) {
   const filtersJS = filters.toJS();
@@ -74,7 +74,7 @@ function alertSignup(email, filters) {
 /**
  *
  * @param {Immutable} filters
- * @return void
+ * @return object
  */
 function alertConfirm(email, filters) {
   const filtersJS = filters.toJS();
@@ -95,7 +95,7 @@ function alertConfirm(email, filters) {
 /**
  *
  * @param {Immutable} filters
- * @return void
+ * @return object
  */
 function alertUnsubscribe(email, filters) {
   const filtersJS = filters.toJS();
@@ -116,7 +116,7 @@ function alertUnsubscribe(email, filters) {
 /**
  *
  * @param {Immutable} filters
- * @return void
+ * @return object
  */
 function weeklySubscribe(email) {
   if (email && email.length) {
