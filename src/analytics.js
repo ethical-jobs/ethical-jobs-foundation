@@ -9,7 +9,7 @@ function jobView(jobSlug = '') {
       category: 'jobs',
       action: 'view',
       dimension1: jobSlug,
-    };    
+    };
   }
   return {};
 }
@@ -27,7 +27,7 @@ function jobClick(event, jobSlug = '') {
       category: 'jobs',
       action: 'apply',
       dimension1: jobSlug,
-    };        
+    };
   }
   return {};
 }
@@ -47,7 +47,7 @@ function jobSearch(filters) {
     dimension4: filtersJS.locations,  // search:location
     dimension5: filtersJS.workTypes,  // search:workType
     dimension6: filtersJS.sectors,    // search:sector
-  };   
+  };
 }
 
 /**
@@ -66,7 +66,7 @@ function alertSignup(email, filters) {
       dimension4: filtersJS.locations,  // search:location
       dimension5: filtersJS.workTypes,  // search:workType
       dimension7: email,
-    };       
+    };
   }
   return {};
 }
@@ -87,7 +87,7 @@ function alertConfirm(email, filters) {
       dimension4: filtersJS.locations,  // search:location
       dimension5: filtersJS.workTypes,  // search:workType
       dimension7: email,
-    };    
+    };
   }
   return {};
 }
@@ -108,7 +108,7 @@ function alertUnsubscribe(email, filters) {
       dimension4: filtersJS.locations,  // search:location
       dimension5: filtersJS.workTypes,  // search:workType
       dimension7: email,
-    };     
+    };
   }
   return {};
 }
@@ -124,7 +124,7 @@ function weeklySubscribe(email) {
       category: 'weekly-email',
       action: 'signup',
       dimension7: email,
-    };       
+    };
   }
   return {};
 }
