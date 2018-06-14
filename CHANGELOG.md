@@ -1,3 +1,8 @@
+# v2.3.0
+
+- Adding dates module
+- Adding toISOString with tests for ISO8601 formatting
+
 # v2.1.0
 
 - Migrating to organisation npm module @ethical-jobs/foundation-js
