@@ -1,4 +1,11 @@
+import * as Auth from './authentication';
 
-export { default as Auth } from './authentication';
+import * as Analytics from './analytics';
 
-export { default as Analytics } from './analytics';
+import * as Dates from './dates';
+
+export {
+  Auth,
+  Analytics,
+  Dates,
+};

@@ -20,14 +20,14 @@
   "main": "es/index.js",
   "jsnext:main": "es/index.js",
   "devDependencies": {
-    "babel-jest": "^23.0.1",
-    "immutable": "4.0.0-rc.2",
-    "jest": "^23.1.0",
-    "sinon": "^2.1.0",
     "babel-cli": "^6.26.0",
     "babel-core": "^6.26.3",
+    "babel-jest": "^23.0.1",
     "babel-plugin-transform-object-rest-spread": "^6.26.0",
-    "babel-preset-env": "^1.7.0"
+    "babel-preset-env": "^1.7.0",
+    "immutable": "4.0.0-rc.2",
+    "jest": "^23.1.0",
+    "sinon": "^2.1.0"
   },
   "repository": {
     "type": "git",
@@ -42,5 +42,8 @@
   ],
   "jest": {
     "setupTestFrameworkScriptFile": "<rootDir>/test/mocks/localStorageMock.js"
+  },
+  "dependencies": {
+    "date-fns": "^1.29.0"
   }
 }

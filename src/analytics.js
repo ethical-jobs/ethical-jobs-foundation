@@ -3,7 +3,7 @@
  * @param {string} [slug]
  * @return {object}
  */
-function jobView(jobSlug = '') {
+export function jobView(jobSlug = '') {
   if (jobSlug.length) {
     return {
       category: 'jobs',
@@ -20,7 +20,7 @@ function jobView(jobSlug = '') {
  * @param {string} [jobSlug]
  * @return {object}
  */
-function jobClick(event, jobSlug = '') {
+export function jobClick(event, jobSlug = '') {
   const tagName = event.target && event.target.tagName && event.target.tagName || '';
   if (tagName.toLowerCase() === 'a' && jobSlug.length) {
     return {
@@ -37,7 +37,7 @@ function jobClick(event, jobSlug = '') {
  * @param {Immutable} filters
  * @return {object}
  */
-function jobSearch(filters) {
+export function jobSearch(filters) {
   const filtersJS = filters.toJS();
   return {
     category: 'jobs',
@@ -55,7 +55,7 @@ function jobSearch(filters) {
  * @param {Immutable} filters
  * @return {object}
  */
-function alertSignup(email, filters) {
+export function alertSignup(email, filters) {
   const filtersJS = filters.toJS();
   if (email && email.length) {
     return {
@@ -76,7 +76,7 @@ function alertSignup(email, filters) {
  * @param {Immutable} filters
  * @return {object}
  */
-function alertConfirm(email, filters) {
+export function alertConfirm(email, filters) {
   const filtersJS = filters.toJS();
   if (email && email.length) {
     return {
@@ -97,7 +97,7 @@ function alertConfirm(email, filters) {
  * @param {Immutable} filters
  * @return {object}
  */
-function alertUnsubscribe(email, filters) {
+export function alertUnsubscribe(email, filters) {
   const filtersJS = filters.toJS();
   if (email && email.length) {
     return {
@@ -118,7 +118,7 @@ function alertUnsubscribe(email, filters) {
  * @param {Immutable} filters
  * @return {object}
  */
-function weeklySubscribe(email) {
+export function weeklySubscribe(email) {
   if (email && email.length) {
     return {
       category: 'weekly-email',
@@ -128,13 +128,3 @@ function weeklySubscribe(email) {
   }
   return {};
 }
-
-export default {
-  jobView,
-  jobClick,
-  jobSearch,
-  alertSignup,
-  alertConfirm,
-  alertUnsubscribe,
-  weeklySubscribe,
-};

@@ -1,4 +1,4 @@
-const roles = {
+export const roles = {
   'service-account': {
     name: 'service-account',
     description: 'Service account',
@@ -33,7 +33,7 @@ const roles = {
  * Checks if auth token present
  * @return Bool
  */
-function hasToken() {
+export function hasToken() {
   return localStorage.getItem('_token') ? true : false;
 }
 
@@ -42,7 +42,7 @@ function hasToken() {
  * @param Object user
  * @return Bool
  */
-function isAuthLoaded(user) {
+export function isAuthLoaded(user) {
   return (user && user.size > 0 && hasToken()) === true;
 }
 
@@ -52,7 +52,7 @@ function isAuthLoaded(user) {
  * @param String role
  * @return Bool
  */
-function hasRole(user, role) {
+export function hasRole(user, role) {
   if (user && user.has('roles')) {
     if (user.get('roles').includes(role)) {
       return true;
@@ -67,7 +67,7 @@ function hasRole(user, role) {
  * @param Array roles
  * @return Bool
  */
-function hasAllRoles(user, roles) {
+export function hasAllRoles(user, roles) {
   if (user && user.has('roles')) {
     return roles.every(role => user.get('roles').includes(role)) &&
       user.get('roles').every(role => roles.includes(role));
@@ -81,7 +81,7 @@ function hasAllRoles(user, roles) {
  * @param Array roles
  * @return Bool
  */
-function hasAnyRole(user, roles) {
+export function hasAnyRole(user, roles) {
   if (user && user.has('roles')) {
     return roles.every(role => user.get('roles').includes(role)) ||
       user.get('roles').every(role => roles.includes(role));
@@ -94,7 +94,7 @@ function hasAnyRole(user, roles) {
  * @param Object user
  * @return Bool
  */
-function isAdmin(user) {
+export function isAdmin(user) {
   return hasRole(user, 'admin');
 }
 
@@ -103,7 +103,7 @@ function isAdmin(user) {
  * @param Object user
  * @return Bool
  */
-function isStaffMember(user) {
+export function isStaffMember(user) {
   return hasRole(user, 'staff-member');
 }
 
@@ -112,7 +112,7 @@ function isStaffMember(user) {
  * @param Object user
  * @return Bool
  */
-function getUserApp(user) {
+export function getUserApp(user) {
   return isStaffMember(user) ? '/admin' : '/organisation';
 }
 
@@ -121,19 +121,6 @@ function getUserApp(user) {
  * @param Object user
  * @return Array
  */
-function userRolesSelector(user) {
+export function userRolesSelector(user) {
   return user && user.has('roles') && user.get('roles').toArray() || [];
 }
-
-export default {
-  hasToken,
-  isAuthLoaded,
-  hasRole,
-  hasAllRoles,
-  hasAnyRole,
-  isAdmin,
-  isStaffMember,
-  getUserApp,
-  userRolesSelector,
-  roles,
-};
