@@ -1,12 +1,14 @@
-# v2.0.0 - [2018-05-11]
+# v2.1.0
 
-## Added 
+- Migrating to organisation npm module @ethical-jobs/foundation-js
+- Removing rollup build system.
+- Babel transpiled modules
+
+# v2.0.0
 
 - Refactored how Analytics works, only returning objects now for react-ga
 
-# v1.1.0 - [2018-04-26]
-
-## Added 
+# v1.1.0
 
 - Added Analytics signup, unsubscribe and confirm events
 

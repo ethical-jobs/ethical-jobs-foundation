@@ -1,5 +1,3 @@
-import Immutable from 'immutable';
-
 const roles = {
   'service-account': {
     name: 'service-account',

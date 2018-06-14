@@ -1,5 +1,5 @@
 import Immutable from 'immutable';
-import { Auth } from '..';
+import { Auth } from '../src';
 
 /**
  * ----------------------------------------

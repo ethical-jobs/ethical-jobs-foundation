@@ -1,5 +1,6 @@
 {
   "name": "@ethical-jobs/foundation",
+  "private": false,
   "version": "2.1.0",
   "author": "Andrew McLagan",
   "description": "EthicalJobs.com.au JS Foundation",
@@ -9,23 +10,28 @@
     "url": "https://github.com/ethical-jobs/foundation-js/issues"
   },
   "scripts": {
-    "build": "NODE_ENV=production BABEL_ENV=es babel ./src --out-dir ./lib --ignore spec.js,test.js",
+    "build": "NODE_ENV=production BABEL_ENV=es babel ./src --out-dir ./es --ignore spec.js,test.js",
     "test": "jest",
     "test-watch": "jest --watch"
   },
   "files": [
-      "lib/"
+    "es/"
   ],
-  "main": "lib/index.js",
+  "main": "es/index.js",
+  "jsnext:main": "es/index.js",
   "devDependencies": {
     "babel-jest": "^23.0.1",
     "immutable": "4.0.0-rc.2",
     "jest": "^23.1.0",
-    "sinon": "^2.1.0"
+    "sinon": "^2.1.0",
+    "babel-cli": "^6.26.0",
+    "babel-core": "^6.26.3",
+    "babel-plugin-transform-object-rest-spread": "^6.26.0",
+    "babel-preset-env": "^1.7.0"
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/ethical-jobs/ethical-jobs-foundation.git"
+    "url": "https://github.com/ethical-jobs/foundation-js.git"
   },
   "keywords": [
     "ethicaljobs",
@@ -34,9 +40,6 @@
     "humanitarian",
     "sdk"
   ],
-  "xo": {
-    "parser": "babel-eslint"
-  },
   "jest": {
     "setupTestFrameworkScriptFile": "<rootDir>/test/mocks/localStorageMock.js"
   }

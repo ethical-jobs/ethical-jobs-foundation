@@ -1,5 +1,5 @@
-import { Analytics } from '..';
 import Immutable from 'immutable';
+import { Analytics } from '../src';
 
 /**
  * ----------------------------------------
