@@ -1,36 +1,27 @@
 {
-  "name": "ethical-jobs-foundation",
-  "version": "2.0.1",
+  "name": "@ethical-jobs/foundation",
+  "version": "2.1.0",
   "author": "Andrew McLagan",
-  "description": "EthicalJobs.com.au Javascript Foundation",
-  "homepage": "https://github.com/ethical-jobs/ethical-jobs-foundation",
+  "description": "EthicalJobs.com.au JS Foundation",
+  "homepage": "https://github.com/ethical-jobs/foundation-js",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/ethical-jobs/ethical-jobs-foundation/issues"
+    "url": "https://github.com/ethical-jobs/foundation-js/issues"
   },
   "scripts": {
-    "prebuild": "rimraf lib/*",
-    "build": "NODE_ENV=production rollup -c",
-    "dev": "NODE_ENV=development rollup -c -w",
+    "build": "NODE_ENV=production BABEL_ENV=es babel ./src --out-dir ./lib --ignore spec.js,test.js",
     "test": "jest",
     "test-watch": "jest --watch"
   },
-  "main": "lib/ethical-jobs-foundation.js",
+  "files": [
+      "lib/"
+  ],
+  "main": "lib/index.js",
   "devDependencies": {
-    "babel-jest": "^19.0.0",
-    "babel-plugin-external-helpers": "^6.22.0",
-    "babel-preset-es2015": "^6.24.1",
-    "babelrc-rollup": "^3.0.0",
-    "immutable": "4.0.0-rc.9",
-    "jest": "^19.0.2",
-    "rimraf": "^2.6.1",
-    "rollup": "^0.41.6",
-    "rollup-plugin-babel": "^2.7.1",
-    "rollup-plugin-commonjs": "^8.0.2",
-    "rollup-plugin-node-resolve": "^3.0.0",
-    "rollup-watch": "^3.2.2",
-    "sinon": "^2.1.0",
-    "xo": "^0.18.1"
+    "babel-jest": "^23.0.1",
+    "immutable": "4.0.0-rc.2",
+    "jest": "^23.1.0",
+    "sinon": "^2.1.0"
   },
   "repository": {
     "type": "git",
