@@ -10,15 +10,16 @@
     "url": "https://github.com/ethical-jobs/foundation-js/issues"
   },
   "scripts": {
-    "build": "NODE_ENV=production BABEL_ENV=es babel ./src --out-dir ./es --ignore spec.js,test.js",
+    "build": "rollup -c",
+    "dev": "rollup -c -w",
     "test": "jest",
     "test-watch": "jest --watch"
   },
   "files": [
     "es/"
   ],
-  "main": "es/index.js",
-  "jsnext:main": "es/index.js",
+  "main": "dist/foundation.cjs.js",
+  "module": "dist/foundation.esm.js",
   "devDependencies": {
     "babel-cli": "^6.26.0",
     "babel-core": "^6.26.3",
