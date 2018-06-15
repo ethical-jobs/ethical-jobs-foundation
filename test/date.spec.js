@@ -8,6 +8,15 @@ describe('toISOString function', () => {
     ).toBe('string');
   });
 
+  test('it returns current date when param is empty', () => {
+    const currentYear = (new Date).getFullYear().toString();
+    expect(
+      Dates.toISOString()
+    ).toEqual(
+      expect.stringContaining(currentYear)
+    );
+  });
+
   test('it formats string into ISO8601 complient date', () => {
     expect(
       Dates.toISOString(new Date('05 October 2011 14:48 UTC'))
