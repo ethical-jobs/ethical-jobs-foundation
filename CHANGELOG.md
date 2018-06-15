@@ -1,3 +1,8 @@
+# v2.4.0
+
+- Reimplement rollup build
+- Adding toISOString edge case tests
+
 # v2.3.0
 
 - Adding dates module
