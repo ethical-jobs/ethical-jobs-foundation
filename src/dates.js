@@ -5,7 +5,7 @@ import parse from 'date-fns/parse';
  * @param {Date|String|Number} dirtyDate
  * @returns {String}
  */
-export function toISOString(dirtyDate) {
+export function toISOString(dirtyDate = new Date) {
   const date = parse(dirtyDate);
   return date.toISOString();
 }
