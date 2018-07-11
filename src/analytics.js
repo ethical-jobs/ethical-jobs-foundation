@@ -128,3 +128,18 @@ export function weeklySubscribe(email) {
   }
   return {};
 }
+
+/**
+ * @param {string} channel e.g. 'facebook'
+ * @return {object}
+ */
+export function share(channel) {
+  if (channel) {
+    return {
+      category: 'social',
+      action: 'share',
+      label: channel,
+    };
+  }
+  return {};
+}
