@@ -279,6 +279,21 @@ function weeklySubscribe(email) {
   return {};
 }
 
+/**
+ * @param {string} channel e.g. 'facebook'
+ * @return {object}
+ */
+function share(channel) {
+  if (channel) {
+    return {
+      category: 'social',
+      action: 'share',
+      label: channel
+    };
+  }
+  return {};
+}
+
 var analytics = /*#__PURE__*/Object.freeze({
   jobView: jobView,
   jobClick: jobClick,
@@ -286,7 +301,8 @@ var analytics = /*#__PURE__*/Object.freeze({
   alertSignup: alertSignup,
   alertConfirm: alertConfirm,
   alertUnsubscribe: alertUnsubscribe,
-  weeklySubscribe: weeklySubscribe
+  weeklySubscribe: weeklySubscribe,
+  share: share
 });
 
 /**
