@@ -258,3 +258,23 @@ describe('weeklySubscribe function', () => {
     expect(data).toEqual({});
   });
 });
+
+/**
+ * ----------------------------------------
+ */
+describe('share function', () => {
+
+    test('it fires event with correct params', () => {
+        const data = Analytics.share('facebook');
+        expect(data).toEqual({
+            category: 'social',
+            action: 'share',
+            label: 'facebook',
+        });
+    });
+
+    test('it wont fire event with empty channel', () => {
+        const data = Analytics.share('');
+        expect(data).toEqual({});
+    });
+});
