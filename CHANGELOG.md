@@ -1,3 +1,10 @@
+# v3.0.0
+
+- Analytics package refactor
+- Events objects abstracted
+- ReactGA calls abstracted
+- Added alert subscription events
+
 # v2.5.0
 
 - Add social share analytics

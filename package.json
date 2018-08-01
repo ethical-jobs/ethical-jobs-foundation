@@ -12,8 +12,7 @@
   "scripts": {
     "build": "rollup -c",
     "dev": "rollup -c -w",
-    "test": "jest",
-    "test-watch": "jest --watch"
+    "test": "jest"
   },
   "main": "dist/foundation.cjs.js",
   "module": "dist/foundation.esm.js",
@@ -29,7 +28,14 @@
     "rollup-plugin-babel": "^3.0.4",
     "rollup-plugin-commonjs": "^9.1.3",
     "rollup-plugin-node-resolve": "^3.3.0",
-    "sinon": "^2.1.0"
+    "sinon": "^2.1.0",
+    "react-ga": "^2.0.0"
+  },
+  "peerDependencies": {
+    "react-ga": "^2.0.0"
+  },
+  "dependencies": {
+    "date-fns": "^1.29.0"
   },
   "repository": {
     "type": "git",
@@ -44,8 +50,5 @@
   ],
   "jest": {
     "setupTestFrameworkScriptFile": "<rootDir>/test/mocks/localStorageMock.js"
-  },
-  "dependencies": {
-    "date-fns": "^1.29.0"
   }
 }

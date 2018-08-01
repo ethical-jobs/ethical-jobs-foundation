@@ -13,6 +13,7 @@ export default [
     input: 'src/index.js',
     external: [
       'immutable',
+      'react-ga',
     ],
     output: [
       { file: pkg.main, format: 'cjs' },
