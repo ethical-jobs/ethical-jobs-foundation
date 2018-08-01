@@ -1,3 +1,7 @@
+# v3.1.0
+
+- React analytics init, pageview helpers
+
 # v3.0.1
 
 - Failure to build modules

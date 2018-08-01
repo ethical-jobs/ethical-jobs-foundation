@@ -1,7 +1,7 @@
 {
   "name": "@ethical-jobs/foundation",
   "private": false,
-  "version": "3.0.1",
+  "version": "3.1.0",
   "author": "Andrew McLagan",
   "description": "EthicalJobs.com.au JS Foundation",
   "homepage": "https://github.com/ethical-jobs/foundation-js",
