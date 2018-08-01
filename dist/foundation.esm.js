@@ -1,3 +1,5 @@
+import ReactGA from 'react-ga';
+
 var roles = {
   'service-account': {
     name: 'service-account',
@@ -142,167 +144,6 @@ var authentication = /*#__PURE__*/Object.freeze({
   isStaffMember: isStaffMember,
   getUserApp: getUserApp,
   userRolesSelector: userRolesSelector
-});
-
-/**
- * Fires an analytics job view event
- * @param {string} [slug]
- * @return {object}
- */
-function jobView() {
-  var jobSlug = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : '';
-
-  if (jobSlug.length) {
-    return {
-      category: 'jobs',
-      action: 'view',
-      dimension1: jobSlug
-    };
-  }
-  return {};
-}
-
-/**
- * Fires an analytics job click event
- * @param {Object} event
- * @param {string} [jobSlug]
- * @return {object}
- */
-function jobClick(event) {
-  var jobSlug = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : '';
-
-  var tagName = event.target && event.target.tagName && event.target.tagName || '';
-  if (tagName.toLowerCase() === 'a' && jobSlug.length) {
-    return {
-      category: 'jobs',
-      action: 'apply',
-      dimension1: jobSlug
-    };
-  }
-  return {};
-}
-
-/**
- * Fires an analytics job search event
- * @param {Immutable} filters
- * @return {object}
- */
-function jobSearch(filters) {
-  var filtersJS = filters.toJS();
-  return {
-    category: 'jobs',
-    action: 'search',
-    dimension2: filtersJS.q, // search:term
-    dimension3: filtersJS.categories, // search:category
-    dimension4: filtersJS.locations, // search:location
-    dimension5: filtersJS.workTypes, // search:workType
-    dimension6: filtersJS.sectors // search:sector
-  };
-}
-
-/**
- *
- * @param {Immutable} filters
- * @return {object}
- */
-function alertSignup(email, filters) {
-  var filtersJS = filters.toJS();
-  if (email && email.length) {
-    return {
-      category: 'alerts',
-      action: 'signup',
-      dimension2: filtersJS.q, // search:term
-      dimension3: filtersJS.categories, // search:category
-      dimension4: filtersJS.locations, // search:location
-      dimension5: filtersJS.workTypes, // search:workType
-      dimension7: email
-    };
-  }
-  return {};
-}
-
-/**
- *
- * @param {Immutable} filters
- * @return {object}
- */
-function alertConfirm(email, filters) {
-  var filtersJS = filters.toJS();
-  if (email && email.length) {
-    return {
-      category: 'alerts',
-      action: 'confirm',
-      dimension2: filtersJS.q, // search:term
-      dimension3: filtersJS.categories, // search:category
-      dimension4: filtersJS.locations, // search:location
-      dimension5: filtersJS.workTypes, // search:workType
-      dimension7: email
-    };
-  }
-  return {};
-}
-
-/**
- *
- * @param {Immutable} filters
- * @return {object}
- */
-function alertUnsubscribe(email, filters) {
-  var filtersJS = filters.toJS();
-  if (email && email.length) {
-    return {
-      category: 'alerts',
-      action: 'unsubscribe',
-      dimension2: filtersJS.q, // search:term
-      dimension3: filtersJS.categories, // search:category
-      dimension4: filtersJS.locations, // search:location
-      dimension5: filtersJS.workTypes, // search:workType
-      dimension7: email
-    };
-  }
-  return {};
-}
-
-/**
- *
- * @param {Immutable} filters
- * @return {object}
- */
-function weeklySubscribe(email) {
-  if (email && email.length) {
-    return {
-      category: 'weekly-email',
-      action: 'signup',
-      dimension7: email
-    };
-  }
-  return {};
-}
-
-/**
- * @param {string} channel e.g. 'facebook'
- * @return {object}
- */
-function share(channel) {
-  if (channel) {
-    return {
-      category: 'social',
-      action: 'share',
-      label: channel
-    };
-  }
-  return {};
-}
-
-var analytics = /*#__PURE__*/Object.freeze({
-  jobView: jobView,
-  jobClick: jobClick,
-  jobSearch: jobSearch,
-  alertSignup: alertSignup,
-  alertConfirm: alertConfirm,
-  alertUnsubscribe: alertUnsubscribe,
-  weeklySubscribe: weeklySubscribe,
-  share: share
 });
 
 /**
@@ -661,4 +502,260 @@ var dates = /*#__PURE__*/Object.freeze({
   toISOString: toISOString
 });
 
-export { authentication as Auth, analytics as Analytics, dates as Dates };
+/**
+ * Checks if structure is 'like' an ImmutableJS object
+ * @param  {mixed}  maybeImmutable
+ */
+function isImmutable(maybeImmutable) {
+  if (maybeImmutable) {
+    return typeof maybeImmutable.toJS === 'function';
+  }
+  return false;
+}
+
+/**
+ * Jsonifies immutable structures
+ * @param  {mixed} maybeImmutable
+ */
+function fromImmutable(maybeImmutable) {
+  return isImmutable(maybeImmutable) ? maybeImmutable.toJS() : maybeImmutable;
+}
+
+var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
+/**
+ * Maps search paramaters to dimensions
+ * @param {Object|Map} filters
+ * @return {Object}
+ */
+function searchDimensions() {
+  var filters = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
+
+  var params = fromImmutable(filters);
+  return {
+    dimension2: params.q, // search:term
+    dimension3: params.categories, // search:category
+    dimension4: params.locations, // search:location
+    dimension5: params.workTypes, // search:workType
+    dimension6: params.sectors // search:sector
+  };
+}
+
+/**
+ * Returns a job view event object
+ * @param {string} jobSlug
+ * @return {Object}
+ */
+function jobView(jobSlug) {
+  return {
+    category: 'jobs',
+    action: 'view',
+    dimension1: jobSlug
+  };
+}
+
+/**
+ * Returns a job click event object
+ * @param {string} jobSlug
+ * @return {Object}
+ */
+function jobClick(jobSlug) {
+  return {
+    category: 'jobs',
+    action: 'apply',
+    dimension1: jobSlug
+  };
+}
+
+/**
+ * Returns an job search event object
+ * @param {Object|Map} filters
+ * @return {Object}
+ */
+function jobSearch(filters) {
+  return _extends({
+    category: 'jobs',
+    action: 'search'
+  }, searchDimensions(filters));
+}
+
+/**
+ * Returns an alert confirm event object
+ * @param {string} frequency
+ * @param {Object|Map} filters
+ * @return {Object}
+ */
+function alertConfirm(frequency, filters) {
+  return _extends({
+    category: 'alerts',
+    action: 'confirm',
+    dimension7: frequency }, searchDimensions(filters));
+}
+
+/**
+ * Returns an alert subscribe event object
+ * @param {string} frequency
+ * @param {Object|Map} filters
+ * @return {Object}
+ */
+function alertSubscribe(frequency, filters) {
+  return _extends({
+    category: 'alerts',
+    action: 'subscribe',
+    dimension7: frequency }, searchDimensions(filters));
+}
+
+/**
+ * Returns an alert unsubscribe event object
+ * @param {string} frequency
+ * @param {Object|Map} filters
+ * @return {Object}
+ */
+function alertUnsubscribe(frequency, filters) {
+  return _extends({
+    category: 'alerts',
+    action: 'unsubscribe',
+    dimension7: frequency }, searchDimensions(filters));
+}
+
+/**
+ * Returns an weekly-email-list subscribe event object
+ * @return {Object}
+ */
+function weeklySubscribe() {
+  return {
+    category: 'weekly-email',
+    action: 'signup'
+  };
+}
+
+/**
+ * Returns a share event object
+ * @param {string} channel
+ * @return {Object}
+ */
+function share(channel) {
+  return {
+    category: 'social',
+    action: 'share',
+    label: channel
+  };
+}
+
+var events = /*#__PURE__*/Object.freeze({
+  searchDimensions: searchDimensions,
+  jobView: jobView,
+  jobClick: jobClick,
+  jobSearch: jobSearch,
+  alertConfirm: alertConfirm,
+  alertSubscribe: alertSubscribe,
+  alertUnsubscribe: alertUnsubscribe,
+  weeklySubscribe: weeklySubscribe,
+  share: share
+});
+
+/**
+ * Fires a job view event
+ * @param {string} jobSlug
+ * @return {undefined}
+ */
+function jobView$1() {
+  var jobSlug = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : '';
+
+  if (jobSlug.length) {
+    ReactGA.event(jobView(jobSlug));
+  }
+}
+
+/**
+ * Fires a job click event
+ * @param {Object} event
+ * @param {string} jobSlug
+ * @return {undefined}
+ */
+function jobClick$1(event) {
+  var jobSlug = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : '';
+
+  var tagName = event.target && event.target.tagName && event.target.tagName || '';
+  if (tagName.toLowerCase() === 'a' && jobSlug.length) {
+    ReactGA.event(jobClick(jobSlug));
+  }
+}
+
+/**
+ * Fires a job search event
+ * @param {Object|Map} filters
+ * @return {undefined}
+ */
+function jobSearch$1(filters) {
+  ReactGA.event(jobSearch(filters));
+}
+
+/**
+ * Fires an alert confirmation event
+ * @param {string} frequency
+ * @param {Object|Map} filters
+ * @return {undefined}
+ */
+function alertConfirm$1(frequency, filters) {
+  ReactGA.event(alertConfirm(frequency, filters));
+}
+
+/**
+ * Fires an alert subscribe event
+ * @param {string} frequency
+ * @param {Object|Map} filters
+ * @return {undefined}
+ */
+function alertSubscribe$1(frequency, filters) {
+  ReactGA.event(alertSubscribe(frequency, filters));
+}
+
+/**
+ * Fires an alert unsubscribe event
+ * @param {string} frequency
+ * @param {Object|Map} filters
+ * @return {undefined}
+ */
+function alertUnsubscribe$1(frequency, filters) {
+  ReactGA.event(alertUnsubscribe(frequency, filters));
+}
+
+/**
+ * Fires a social share event
+ * @return {undefined}
+ */
+function weeklySubscribe$1() {
+  ReactGA.event(weeklySubscribe());
+}
+
+/**
+ * Fires a social share event
+ * @param {string} channel
+ * @return {undefined}
+ */
+function share$1() {
+  var channel = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : '';
+
+  if (channel.length) {
+    ReactGA.event(share(channel));
+  }
+}
+
+var react = /*#__PURE__*/Object.freeze({
+  jobView: jobView$1,
+  jobClick: jobClick$1,
+  jobSearch: jobSearch$1,
+  alertConfirm: alertConfirm$1,
+  alertSubscribe: alertSubscribe$1,
+  alertUnsubscribe: alertUnsubscribe$1,
+  weeklySubscribe: weeklySubscribe$1,
+  share: share$1
+});
+
+var index = {
+  events: events,
+  react: react
+};
+
+export { authentication as Auth, index as Analytics, dates as Dates };
