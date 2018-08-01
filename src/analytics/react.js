@@ -2,6 +2,34 @@ import ReactGA from 'react-ga';
 import * as Events from './events';
 
 /**
+ * Initiates tracking of a GA property
+ * @param {string} property
+ * @param {Object} settings
+ * @return {undefined}
+ */
+export function init(property, settings) {
+  ReactGA.initialize(property, {
+    ...settings,
+    titleCase: false,
+  });
+}
+
+/**
+ * Fires a pageview event
+ * @param {string} property
+ * @param {Object} settings
+ * @return {undefined}
+ */
+export function pageview(path = '') {
+  let uri = window.location.pathname + window.location.search;
+  if (path.length > 0) {
+    uri = path;
+  }
+  ReactGA.pageview(uri);
+}
+
+
+/**
  * Fires a job view event
  * @param {string} jobSlug
  * @return {undefined}

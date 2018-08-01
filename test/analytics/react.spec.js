@@ -8,6 +8,23 @@ afterEach(() => {
   ReactGA.testModeAPI.calls.splice(1, 1); // remove the last event call
 });
 
+describe('pageview', () => {
+  test('it fires event correctly with no params', () => {
+    Analytics.pageview();
+    expect(ReactGA.testModeAPI.calls[1]).toEqual(['send', {
+      'hitType': 'pageview',
+      'page': 'blank'
+    }]);
+  });
+  test('it fires event correctly with param', () => {
+    Analytics.pageview('ethicaljobs.com.au?employer=unhcr');
+    expect(ReactGA.testModeAPI.calls[1]).toEqual(['send', {
+      'hitType': 'pageview',
+      'page': 'ethicaljobs.com.au?employer=unhcr'
+    }]);
+  });
+});
+
 describe('jobView', () => {
   test('it fires event correctly', () => {
     Analytics.jobView('mock-job-slug');

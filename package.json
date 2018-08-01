@@ -1,7 +1,7 @@
 {
   "name": "@ethical-jobs/foundation",
   "private": false,
-  "version": "3.0.1",
+  "version": "3.1.0",
   "author": "Andrew McLagan",
   "description": "EthicalJobs.com.au JS Foundation",
   "homepage": "https://github.com/ethical-jobs/foundation-js",
@@ -20,16 +20,17 @@
     "babel-cli": "^6.26.0",
     "babel-core": "^6.26.3",
     "babel-jest": "^23.0.1",
+    "babel-plugin-external-helpers": "^6.22.0",
     "babel-plugin-transform-object-rest-spread": "^6.26.0",
     "babel-preset-env": "^1.7.0",
     "immutable": "4.0.0-rc.2",
     "jest": "^23.1.0",
+    "react-ga": "^2.0.0",
     "rollup": "^0.60.5",
     "rollup-plugin-babel": "^3.0.4",
     "rollup-plugin-commonjs": "^9.1.3",
     "rollup-plugin-node-resolve": "^3.3.0",
-    "sinon": "^2.1.0",
-    "react-ga": "^2.0.0"
+    "sinon": "^2.1.0"
   },
   "peerDependencies": {
     "react-ga": "^2.0.0"
