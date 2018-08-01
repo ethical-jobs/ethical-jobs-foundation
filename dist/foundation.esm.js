@@ -521,8 +521,6 @@ function fromImmutable(maybeImmutable) {
   return isImmutable(maybeImmutable) ? maybeImmutable.toJS() : maybeImmutable;
 }
 
-var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
-
 /**
  * Maps search paramaters to dimensions
  * @param {Object|Map} filters
@@ -573,7 +571,7 @@ function jobClick(jobSlug) {
  * @return {Object}
  */
 function jobSearch(filters) {
-  return _extends({
+  return babelHelpers.extends({
     category: 'jobs',
     action: 'search'
   }, searchDimensions(filters));
@@ -586,7 +584,7 @@ function jobSearch(filters) {
  * @return {Object}
  */
 function alertConfirm(frequency, filters) {
-  return _extends({
+  return babelHelpers.extends({
     category: 'alerts',
     action: 'confirm',
     dimension7: frequency }, searchDimensions(filters));
@@ -599,7 +597,7 @@ function alertConfirm(frequency, filters) {
  * @return {Object}
  */
 function alertSubscribe(frequency, filters) {
-  return _extends({
+  return babelHelpers.extends({
     category: 'alerts',
     action: 'subscribe',
     dimension7: frequency }, searchDimensions(filters));
@@ -612,7 +610,7 @@ function alertSubscribe(frequency, filters) {
  * @return {Object}
  */
 function alertUnsubscribe(frequency, filters) {
-  return _extends({
+  return babelHelpers.extends({
     category: 'alerts',
     action: 'unsubscribe',
     dimension7: frequency }, searchDimensions(filters));
@@ -653,6 +651,34 @@ var events = /*#__PURE__*/Object.freeze({
   weeklySubscribe: weeklySubscribe,
   share: share
 });
+
+/**
+ * Initiates tracking of a GA property
+ * @param {string} property
+ * @param {Object} settings
+ * @return {undefined}
+ */
+function init(property, settings) {
+  ReactGA.initialize(property, babelHelpers.extends({}, settings, {
+    titleCase: false
+  }));
+}
+
+/**
+ * Fires a pageview event
+ * @param {string} property
+ * @param {Object} settings
+ * @return {undefined}
+ */
+function pageview() {
+  var path = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : '';
+
+  var uri = window.location.pathname + window.location.search;
+  if (path.length > 0) {
+    uri = path;
+  }
+  ReactGA.pageview(uri);
+}
 
 /**
  * Fires a job view event
@@ -743,6 +769,8 @@ function share$1() {
 }
 
 var react = /*#__PURE__*/Object.freeze({
+  init: init,
+  pageview: pageview,
   jobView: jobView$1,
   jobClick: jobClick$1,
   jobSearch: jobSearch$1,
