@@ -1,3 +1,7 @@
+# v3.0.1
+
+- Failure to build modules
+
 # v3.0.0
 
 - Analytics package refactor
