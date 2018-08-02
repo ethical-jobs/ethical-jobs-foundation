@@ -645,7 +645,7 @@ function alertUnsubscribe(frequency, filters) {
 function alertUpdate(frequency, filters) {
   return _extends({
     category: 'alerts',
-    action: 'unsubscribe',
+    action: 'update',
     dimension7: frequency }, searchDimensions(filters));
 }
 
@@ -782,6 +782,16 @@ function alertUnsubscribe$1(frequency, filters) {
 }
 
 /**
+ * Fires an alert update event
+ * @param {string} frequency
+ * @param {Object|Map} filters
+ * @return {undefined}
+ */
+function alertUpdate$1(frequency, filters) {
+  ReactGA.event(alertUpdate(frequency, filters));
+}
+
+/**
  * Fires a social share event
  * @return {undefined}
  */
@@ -811,6 +821,7 @@ var react = /*#__PURE__*/Object.freeze({
   alertConfirm: alertConfirm$1,
   alertSubscribe: alertSubscribe$1,
   alertUnsubscribe: alertUnsubscribe$1,
+  alertUpdate: alertUpdate$1,
   weeklySubscribe: weeklySubscribe$1,
   share: share$1
 });

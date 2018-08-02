@@ -1,3 +1,7 @@
+# v3.2.0
+
+- Creating alertUpdate analytics fn
+
 # v3.1.1
 
 - Issues with rollup build
