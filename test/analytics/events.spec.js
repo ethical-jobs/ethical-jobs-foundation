@@ -265,6 +265,49 @@ describe('alertUnsubscribe function', () => {
   });
 });
 
+describe('alertUpdate function', () => {
+
+  test('it returns correct event structure', () => {
+    const event = Events.alertUpdate('WEEKLY', {
+      q: 'Senior ReactJS javascript developer',
+      categories: [18, 27, 83, 2],
+      locations: [87, 37],
+      workTypes: [1, 27, 3],
+      sectors: [11, 7, 13],
+    });
+    expect(event).toEqual({
+      category: 'alerts',
+      action: 'update',
+      dimension7: 'WEEKLY',
+      dimension2: 'Senior ReactJS javascript developer',
+      dimension3: [18, 27, 83, 2],
+      dimension4: [87, 37],
+      dimension5: [1, 27, 3],
+      dimension6: [11, 7, 13],
+    });
+  });
+
+  test('it handles immutable structures', () => {
+    const event = Events.alertUpdate('WEEKLY', Immutable.fromJS({
+      q: 'Senior ReactJS javascript developer',
+      categories: [18, 27, 83, 2],
+      locations: [87, 37],
+      workTypes: [1, 27, 3],
+      sectors: [11, 7, 13],
+    }));
+    expect(event).toEqual({
+      category: 'alerts',
+      action: 'update',
+      dimension7: 'WEEKLY',
+      dimension2: 'Senior ReactJS javascript developer',
+      dimension3: [18, 27, 83, 2],
+      dimension4: [87, 37],
+      dimension5: [1, 27, 3],
+      dimension6: [11, 7, 13],
+    });
+  });
+});
+
 describe('share function', () => {
 
   test('it returns correct event structure', () => {

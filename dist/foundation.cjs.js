@@ -637,6 +637,19 @@ function alertUnsubscribe(frequency, filters) {
 }
 
 /**
+ * Returns an alert update event object
+ * @param {string} frequency
+ * @param {Object|Map} filters
+ * @return {Object}
+ */
+function alertUpdate(frequency, filters) {
+  return _extends({
+    category: 'alerts',
+    action: 'unsubscribe',
+    dimension7: frequency }, searchDimensions(filters));
+}
+
+/**
  * Returns an weekly-email-list subscribe event object
  * @return {Object}
  */
@@ -668,6 +681,7 @@ var events = /*#__PURE__*/Object.freeze({
   alertConfirm: alertConfirm,
   alertSubscribe: alertSubscribe,
   alertUnsubscribe: alertUnsubscribe,
+  alertUpdate: alertUpdate,
   weeklySubscribe: weeklySubscribe,
   share: share
 });

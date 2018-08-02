@@ -101,6 +101,21 @@ export function alertUnsubscribe(frequency, filters) {
 }
 
 /**
+ * Returns an alert update event object
+ * @param {string} frequency
+ * @param {Object|Map} filters
+ * @return {Object}
+ */
+export function alertUpdate(frequency, filters) {
+  return {
+    category: 'alerts',
+    action: 'update',
+    dimension7: frequency, // alert:frequency
+    ...searchDimensions(filters),
+  };
+}
+
+/**
  * Returns an weekly-email-list subscribe event object
  * @return {Object}
  */
