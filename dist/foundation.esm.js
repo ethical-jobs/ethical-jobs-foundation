@@ -521,6 +521,20 @@ function fromImmutable(maybeImmutable) {
   return isImmutable(maybeImmutable) ? maybeImmutable.toJS() : maybeImmutable;
 }
 
+var _extends = Object.assign || function (target) {
+  for (var i = 1; i < arguments.length; i++) {
+    var source = arguments[i];
+
+    for (var key in source) {
+      if (Object.prototype.hasOwnProperty.call(source, key)) {
+        target[key] = source[key];
+      }
+    }
+  }
+
+  return target;
+};
+
 /**
  * Maps search paramaters to dimensions
  * @param {Object|Map} filters
@@ -571,7 +585,7 @@ function jobClick(jobSlug) {
  * @return {Object}
  */
 function jobSearch(filters) {
-  return babelHelpers.extends({
+  return _extends({
     category: 'jobs',
     action: 'search'
   }, searchDimensions(filters));
@@ -584,7 +598,7 @@ function jobSearch(filters) {
  * @return {Object}
  */
 function alertConfirm(frequency, filters) {
-  return babelHelpers.extends({
+  return _extends({
     category: 'alerts',
     action: 'confirm',
     dimension7: frequency }, searchDimensions(filters));
@@ -597,7 +611,7 @@ function alertConfirm(frequency, filters) {
  * @return {Object}
  */
 function alertSubscribe(frequency, filters) {
-  return babelHelpers.extends({
+  return _extends({
     category: 'alerts',
     action: 'subscribe',
     dimension7: frequency }, searchDimensions(filters));
@@ -610,7 +624,7 @@ function alertSubscribe(frequency, filters) {
  * @return {Object}
  */
 function alertUnsubscribe(frequency, filters) {
-  return babelHelpers.extends({
+  return _extends({
     category: 'alerts',
     action: 'unsubscribe',
     dimension7: frequency }, searchDimensions(filters));
@@ -659,7 +673,7 @@ var events = /*#__PURE__*/Object.freeze({
  * @return {undefined}
  */
 function init(property, settings) {
-  ReactGA.initialize(property, babelHelpers.extends({}, settings, {
+  ReactGA.initialize(property, _extends({}, settings, {
     titleCase: false
   }));
 }
