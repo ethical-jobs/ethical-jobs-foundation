@@ -1,3 +1,7 @@
+# v3.1.1
+
+- Issues with rollup build
+
 # v3.1.0
 
 - React analytics init, pageview helpers
