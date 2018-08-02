@@ -237,6 +237,49 @@ describe('alertUnsubscribe', () => {
   });
 });
 
+describe('alertUpdate', () => {
+  test('it fires event correctly', () => {
+    Analytics.alertUpdate('WEEKLY', {
+      q: 'Senior ReactJS javascript developer',
+      categories: [18, 27, 83, 2],
+      locations: [87, 37],
+      workTypes: [1, 27, 3],
+      sectors: [11, 7, 13],
+    });
+    expect(ReactGA.testModeAPI.calls[1]).toEqual(['send', {
+      hitType: 'event',
+      eventCategory: 'Alerts',
+      eventAction: 'Update',
+      dimension7: 'WEEKLY',
+      dimension2: 'Senior ReactJS javascript developer',
+      dimension3: [18, 27, 83, 2],
+      dimension4: [87, 37],
+      dimension5: [1, 27, 3],
+      dimension6: [11, 7, 13],
+    }]);
+  });
+  test('it handles immutable structures', () => {
+    Analytics.alertUpdate('WEEKLY', Immutable.fromJS({
+      q: 'Senior ReactJS javascript developer',
+      categories: [18, 27, 83, 2],
+      locations: [87, 37],
+      workTypes: [1, 27, 3],
+      sectors: [11, 7, 13],
+    }));
+    expect(ReactGA.testModeAPI.calls[1]).toEqual(['send', {
+      hitType: 'event',
+      eventCategory: 'Alerts',
+      eventAction: 'Update',
+      dimension7: 'WEEKLY',
+      dimension2: 'Senior ReactJS javascript developer',
+      dimension3: [18, 27, 83, 2],
+      dimension4: [87, 37],
+      dimension5: [1, 27, 3],
+      dimension6: [11, 7, 13],
+    }]);
+  });
+});
+
 describe('weeklySubscribe', () => {
   test('it fires event correctly', () => {
     Analytics.weeklySubscribe();

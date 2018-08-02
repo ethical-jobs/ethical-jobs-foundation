@@ -105,6 +105,18 @@ export function alertUnsubscribe(frequency, filters) {
 }
 
 /**
+ * Fires an alert update event
+ * @param {string} frequency
+ * @param {Object|Map} filters
+ * @return {undefined}
+ */
+export function alertUpdate(frequency, filters) {
+  ReactGA.event(
+    Events.alertUpdate(frequency, filters)
+  );
+}
+
+/**
  * Fires a social share event
  * @return {undefined}
  */
