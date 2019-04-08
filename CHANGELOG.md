@@ -1,4 +1,4 @@
-# [ v3.2.0, v3.2.1 ]
+# [ v3.2.0, v3.2.1, v3.2.2 ]
 
 - Creating alertUpdate analytics fn
 
