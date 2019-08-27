@@ -56,6 +56,22 @@ export function jobSearch(filters) {
 }
 
 /**
+ * Returns an job search event object
+ * @param {Object|Map} filters
+ * @param int numResults
+ * @return {Object}
+ */
+export function jobSearchResults(filters, numResults) {
+  return {
+    category: 'jobs',
+    action: 'search-results',
+    ...searchDimensions(filters),
+    dimension8: numResults,        // search:numResults
+    dimension9: numResults > 0,    // search:hasResults
+  };
+}
+
+/**
  * Returns an alert confirm event object
  * @param {string} frequency
  * @param {Object|Map} filters

@@ -69,6 +69,18 @@ export function jobSearch(filters) {
 }
 
 /**
+ * Fires a job search results event
+ * @param {Object|Map} filters
+ * @param int numResults
+ * @return {undefined}
+ */
+export function jobSearchResults(filters, numResults) {
+  ReactGA.event(
+    Events.jobSearchResults(filters, numResults)
+  );
+}
+
+/**
  * Fires an alert confirmation event
  * @param {string} frequency
  * @param {Object|Map} filters
