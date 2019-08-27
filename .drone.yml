@@ -17,6 +17,7 @@ steps:
         from_secret: npm_username
       password:
         from_secret: npm_password
+      email: development@ethicaljobs.com.au
     when:
       status: success
       event: tag
