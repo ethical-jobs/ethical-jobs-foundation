@@ -1,4 +1,4 @@
-# [v3.3.0 - v3.3.1]
+# [v3.3.0 - v3.3.2]
 
 - trello-feature-289 Add GA event for search results
 - Fix CI
