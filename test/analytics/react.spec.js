@@ -108,6 +108,84 @@ describe('jobSearch', () => {
   });
 });
 
+
+describe('jobSearchResults', () => {
+  test('it fires event correctly', () => {
+    Analytics.jobSearchResults(
+      {
+        q: 'Senior ReactJS javascript developer',
+        categories: [18, 27, 83, 2],
+        locations: [87, 37],
+        workTypes: [1, 27, 3],
+        sectors: [11, 7, 13],
+      },
+      15
+    );
+    expect(ReactGA.testModeAPI.calls[1]).toEqual(['send', {
+      hitType: 'event',
+      eventCategory: 'Jobs',
+      eventAction: 'Search-Results',
+      dimension2: 'Senior ReactJS javascript developer',
+      dimension3: [18, 27, 83, 2],
+      dimension4: [87, 37],
+      dimension5: [1, 27, 3],
+      dimension6: [11, 7, 13],
+      dimension8: 15,
+      dimension9: true,
+    }]);
+  });
+
+  test('it handles immutable structures', () => {
+    Analytics.jobSearchResults(
+      Immutable.fromJS({
+        q: 'Senior ReactJS javascript developer',
+        categories: [18, 27, 83, 2],
+        locations: [87, 37],
+        workTypes: [1, 27, 3],
+        sectors: [11, 7, 13],
+      }),
+      5
+    );
+    expect(ReactGA.testModeAPI.calls[1]).toEqual(['send', {
+      hitType: 'event',
+      eventCategory: 'Jobs',
+      eventAction: 'Search-Results',
+      dimension2: 'Senior ReactJS javascript developer',
+      dimension3: [18, 27, 83, 2],
+      dimension4: [87, 37],
+      dimension5: [1, 27, 3],
+      dimension6: [11, 7, 13],
+      dimension8: 5,
+      dimension9: true,
+    }]);
+  });
+
+  test('it sends correct dimension9 when no results', () => {
+    Analytics.jobSearchResults(
+      {
+        q: 'Senior ReactJS javascript developer',
+        categories: [18, 27, 83, 2],
+        locations: [87, 37],
+        workTypes: [1, 27, 3],
+        sectors: [11, 7, 13],
+      },
+      0
+    );
+    expect(ReactGA.testModeAPI.calls[1]).toEqual(['send', {
+      hitType: 'event',
+      eventCategory: 'Jobs',
+      eventAction: 'Search-Results',
+      dimension2: 'Senior ReactJS javascript developer',
+      dimension3: [18, 27, 83, 2],
+      dimension4: [87, 37],
+      dimension5: [1, 27, 3],
+      dimension6: [11, 7, 13],
+      dimension8: 0,
+      dimension9: false,
+    }]);
+  });
+});
+
 describe('alertConfirm', () => {
   test('it fires event correctly', () => {
     Analytics.alertConfirm('WEEKLY', {
